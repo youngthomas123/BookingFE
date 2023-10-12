@@ -1,8 +1,14 @@
+import ViewUsers from './components/ViewUsers'; 
+
 export default function App() {
     return (
-    <>
-    <div>Hello World</div>
-    </>
+    
+    <div>
+        <h1>Hello</h1>
+        <ViewUsers/>
+    </div>
+    
+    
     );
     }
     
