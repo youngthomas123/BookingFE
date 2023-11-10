@@ -16,6 +16,8 @@ async function getUserById(id) {
   return response.json();
 }
 
+
+
 const UserAPI = {
   getAllUsers,
   getUserById,

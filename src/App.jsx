@@ -1,14 +1,43 @@
-import ViewUsers from './components/ViewUsers'; 
+import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 
-export default function App() {
-    return (
+import AboutPage from './pages/AboutPage';
+import RootPage from './pages/RootPage';
+import ContactPage from './pages/ContactPage';
+import ErrorPage from './pages/ErrorPage';
+
+
+const router = createBrowserRouter([
+    {
+      path: "/",
+      element:  <RootPage />,
+      errorElement: <ErrorPage />,
+     
+      
+      children: [
+        {
+          path: "about/",
+          element: <AboutPage />,
+         
+        },
+        {
+          path: "contact/",
+          element: <ContactPage />,
+       
+        },
+  
+      ],
+    },
     
-    <div>
-        <h1>Hello</h1>
-        <ViewUsers/>
-    </div>
-    
-    
+  ]);
+
+
+
+export default function App() 
+{
+    return(
+        <>
+        <RouterProvider router={router} />
+        </>
     );
-    }
+}
     
