@@ -4,16 +4,21 @@ import AboutPage from './pages/AboutPage';
 import RootPage from './pages/RootPage';
 import ContactPage from './pages/ContactPage';
 import ErrorPage from './pages/ErrorPage';
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 
-const router = createBrowserRouter([
+
+const router = createBrowserRouter(
+  [
     {
       path: "/",
       element:  <RootPage />,
       errorElement: <ErrorPage />,
      
       
-      children: [
+      children: 
+      [
         {
           path: "about/",
           element: <AboutPage />,
@@ -22,11 +27,19 @@ const router = createBrowserRouter([
         {
           path: "contact/",
           element: <ContactPage />,
-       
         },
   
       ],
     },
+    {
+      path: "login/",
+      element: <LoginPage />,
+    },
+    {
+      path : "signup/",
+      element : <SignUpPage/>
+    },
+   
     
   ]);
 
