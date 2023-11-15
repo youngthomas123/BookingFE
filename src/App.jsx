@@ -6,6 +6,7 @@ import ContactPage from './pages/ContactPage';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import HomePage from "./pages/HomePage";
 
 
 
@@ -27,6 +28,11 @@ const router = createBrowserRouter(
         {
           path: "contact/",
           element: <ContactPage />,
+        },
+        {
+          path: "home/",
+          element:<HomePage/>
+
         },
   
       ],

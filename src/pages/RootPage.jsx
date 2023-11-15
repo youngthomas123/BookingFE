@@ -11,6 +11,7 @@ export default function RootPage()
         <NavBar/>
         <br/>
         <SearchFilter/>
+        <br/>
        
        
         

@@ -11,7 +11,9 @@ export default function SearchFilter() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const location = formData.get('Location');
+
     console.log('Location:', location);
+
   };
 
   return (
@@ -28,13 +30,13 @@ export default function SearchFilter() {
 
         <Grid item>
          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker label="Check in" />
+            <DatePicker  label="Check in"/>
           </LocalizationProvider>
         </Grid>
 
         <Grid item>
          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker label="Check out" />
+            <DatePicker  label="Check out" />
           </LocalizationProvider>
         </Grid>
           
