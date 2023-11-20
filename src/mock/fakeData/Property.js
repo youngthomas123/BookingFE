@@ -239,3 +239,4 @@ const properties = [
 
 
 export { properties, address };
+
