@@ -1,6 +1,27 @@
+
+
+const address = 
+[
+    "911 Hillside Dr, Kodiak, Alaska 99615, USA",
+    "919 Stimple Ct, Fairbanks, Alaska 99712, USA",
+    "2921 Ashley Ave, Montgomery, Alabama 36109, USA",
+    "1005 Woodlands Cv, Helena, Alabama 35080, USA",
+    "4315 Golf Club Dr, Auburn, Alabama 36830, USA",
+    "2600 Melody Ln, Sedona, Arizona 86336, USA",
+    "2050 W Dunlap Ave #D17, Phoenix, Arizona 85021, USA",
+    "4117 Bridgeport Rd, Santa Maria, California 93455, USA",
+    "4118 Constellation Rd, Lompoc, California 93436, USA",
+    "477 Reposo St, San Jacinto, California 92582, USA",
+    "2856 Lotus Pl, Loveland, Colorado 80537, USA",
+    "800 Bayshore Rd, Nokomis, Florida 34275, USA",
+    "800 Independence Dr, Homestead, Florida 33034, USA",
+    "17506 Golf Club Dr, Crosby, Texas 77532, USA",
+]
+
+
 const properties = [
     {
-        propertyId: 3,
+        propertyId: 1,
         type: "apartment",
         description: "Spacious apartment with a view",
         name: "City View Apartment",
@@ -13,9 +34,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location : address[0]
     },
     {
-        propertyId: 4,
+        propertyId: 2,
         type: "villa",
         description: "Luxurious villa with pool",
         name: "Sunset Villa",
@@ -28,9 +50,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[1]
     },
     {
-        propertyId: 5,
+        propertyId: 3,
         type: "cottage",
         description: "Cozy cottage near the woods",
         name: "Woodland Retreat",
@@ -43,9 +66,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[2]
     },
     {
-        propertyId: 6,
+        propertyId: 4,
         type: "penthouse",
         description: "Luxury penthouse with skyline view",
         name: "Skyline Heights",
@@ -58,9 +82,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[3]
     },
     {
-        propertyId: 7,
+        propertyId: 5,
         type: "cabin",
         description: "Rustic cabin in the mountains",
         name: "Mountain Hideaway",
@@ -73,9 +98,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[4]
     },
     {
-        propertyId: 8,
+        propertyId: 6,
         type: "townhouse",
         description: "Modern townhouse in the city center",
         name: "Urban Nest",
@@ -88,9 +114,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[5]
     },
     {
-        propertyId: 9,
+        propertyId: 7,
         type: "chalet",
         description: "Traditional alpine chalet",
         name: "Alpine Haven",
@@ -103,9 +130,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[6]
     },
     {
-        propertyId: 10,
+        propertyId: 8,
         type: "beach house",
         description: "Relaxing beachfront property",
         name: "Sandy Shores Retreat",
@@ -118,9 +146,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[7]
     },
     {
-        propertyId: 11,
+        propertyId: 9,
         type: "apartment",
         description: "Modern studio apartment",
         name: "Downtown Loft",
@@ -133,9 +162,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[8]
     },
     {
-        propertyId: 12,
+        propertyId: 10,
         type: "cottage",
         description: "Quaint cottage by the lake",
         name: "Lakeside Serenity",
@@ -148,9 +178,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[9]
     },
     {
-        propertyId: 13,
+        propertyId: 11,
         type: "farmhouse",
         description: "Charming farmhouse with a garden",
         name: "Green Acres Farmhouse",
@@ -163,9 +194,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[10]
     },
     {
-        propertyId: 14,
+        propertyId: 12,
         type: "bungalow",
         description: "Secluded bungalow in the forest",
         name: "Forest Haven",
@@ -178,9 +210,10 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location :address[11]
     },
     {
-        propertyId: 15,
+        propertyId: 13,
         type: "apartment",
         description: "Riverside apartment with a view",
         name: "River Vista",
@@ -193,8 +226,16 @@ const properties = [
             img4 : "https://i.pinimg.com/550x/92/88/4f/92884fe1c0975ea4a74ac4b45add96e7.jpg",
 
         },
+        location : address[12]
     }
+          
+    
     
 ];
 
-export { properties };
+
+
+
+
+
+export { properties, address };

@@ -13,6 +13,11 @@ const NavBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           BookingSite
         </Typography>
+
+        <Link to="/home">
+        <Button color="inherit">Home</Button>
+        </Link>
+
         <Link to="/about">
         <Button color="inherit" >About</Button>
         </Link>

@@ -7,6 +7,7 @@ import ErrorPage from './pages/ErrorPage';
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
+import IndexPage from "./pages/IndexPage";
 
 
 
@@ -16,10 +17,15 @@ const router = createBrowserRouter(
       path: "/",
       element:  <RootPage />,
       errorElement: <ErrorPage />,
+
      
       
       children: 
       [
+        { index: true,
+          element: <IndexPage />
+        },
+         
         {
           path: "about/",
           element: <AboutPage />,

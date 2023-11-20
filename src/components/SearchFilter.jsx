@@ -1,43 +1,41 @@
 
 import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function SearchFilter() {
-  const handleOnSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const location = formData.get('Location');
+import DateTextBox from './DateTextBox';
+import TestLocationTextBox from './TestLocationTextBox';
+import Alert from '@mui/material/Alert';
 
-    console.log('Location:', location);
 
-  };
+export default function SearchFilter({handleSearchSubmit, setLocation,  setCheckIn,  setCheckOut, showError, location, checkIn, checkOut }) {
 
+ 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={handleSearchSubmit}>
     <Grid container spacing={2} direction="row" justifyContent="center">
      
-      <Grid item>
-          <TextField
-            name="Location"
-            label="Location"
-            variant="outlined"
+        <Grid item>
+          <TestLocationTextBox 
+          setLocation={(location)=>setLocation(location)}
+          location={location}
           />
         </Grid>
 
         <Grid item>
-         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker  label="Check in"/>
-          </LocalizationProvider>
+          <DateTextBox
+          label={"check in"} 
+          setDate={(date)=>setCheckIn(date)}
+          date={checkIn}
+          />
         </Grid>
 
         <Grid item>
-         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker  label="Check out" />
-          </LocalizationProvider>
+          <DateTextBox 
+          label={"check out"} 
+          setDate={(date)=>setCheckOut(date)}
+          date={checkOut}
+
+          />
         </Grid>
           
           <Grid item>
@@ -45,8 +43,11 @@ export default function SearchFilter() {
             Search
           </Button>
           </Grid>
-      
     </Grid>
+    {showError && (
+        <Alert severity="error">Invalid Dates!</Alert>
+      )}
     </form>
   );
 }
+
