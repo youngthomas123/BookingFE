@@ -3,13 +3,9 @@ import TextField from '@mui/material/TextField';
 import { address } from '../mock/fakeData/Property';
 
 
-export default function TestLocationTextBox({setLocation, location})
+export default function TestLocationTextBox({setLocation})
 {
-    function handleLocationChange(event,location)
-    {
-        setLocation(location)
-
-    }
+  
 
     return (
         <Autocomplete
@@ -17,8 +13,10 @@ export default function TestLocationTextBox({setLocation, location})
         id="location"
         options={address}
         sx={{ width: 300 }}
-        onInputChange={handleLocationChange}
-        value={location}
+      
+        onInputChange={(event,location)=>setLocation(location)}
+        
+       defaultValue={"USA"}
         renderInput={(params) => <TextField {...params} label="Add location" />}
       />
     )

@@ -1,10 +1,9 @@
 import Pagination from '@mui/material/Pagination';
 import { Box } from '@mui/system';
-import { useEffect, useState } from 'react';
-import FakePropertyAPI from '../mock/fakeAPI/FakePropertyAPI';
 
-const pageSize = 6;
-export default function AppPaginataion({pagination, handlePageChange})
+
+
+export default function AppPaginataion({numberOfPages,handlePageChange, currentPage})
 {
     
     
@@ -17,8 +16,10 @@ export default function AppPaginataion({pagination, handlePageChange})
             }}
         >
             <Pagination 
-            count={Math.ceil(pagination.count / pageSize)}
+            count={numberOfPages}
+            page={currentPage}
             onChange={handlePageChange}
+            
             />
 
         </Box>

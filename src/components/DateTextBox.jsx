@@ -2,23 +2,22 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function DateTextBox({label, setDate, date})
+export default function DateTextBox({label, setDate, date, min, max})
 {
 
-  function handleDateChange(date)
-  {
-    setDate(date);
-
-  }
+  
 
  
     return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker  
         label={label}
-         onChange={handleDateChange} 
-         disablePast
-         value={date}
+        value={date}
+        onChange={(date)=>setDate(date)}
+        minDate={min}
+        maxDate={max}
+
+      
          />
       </LocalizationProvider>
     )
