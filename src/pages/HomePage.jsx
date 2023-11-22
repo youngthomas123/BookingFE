@@ -1,12 +1,14 @@
 
 import { useState } from "react";
 import AppPaginataion from "../components/AppPagination";
-import { Grid, Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Typography, Box, CardActions ,Button} from '@mui/material';
 import { Container } from "@mui/system";
 import SearchFilter from "../components/SearchFilter"
 import dayjs from "dayjs";
 import { useEffect } from "react";
 import FakePropertyAPI from "../mock/fakeAPI/FakePropertyAPI";
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -82,33 +84,72 @@ export default function HomePage()
 
 
   
+    // const renderProperties = properties ? (
+    //   properties.map((property) => (
+    //     <Grid item xs={12} sm={6} md={4} key={property.propertyId}>
+    //       <Card>
+    //             <CardMedia
+    //                 component="img"
+    //                 alt={property.name}
+    //                 height="200"
+    //                 image={property.photos.img1}
+    //                 title={property.name}
+    //             />
+    //             <CardContent>
+    //                 <Typography gutterBottom variant="h5" component="h2">
+    //                     {property.name}
+    //                 </Typography>
+    //                 <Typography variant="body2" color="textSecondary" component="p">
+    //                     {property.description}
+    //                 </Typography>
+    //                 <Typography variant="body2" color="textSecondary" component="p">
+    //                     Price: ${property.priceForNight} per night
+    //                 </Typography>
+    //             </CardContent>
+    //         </Card>
+    //     </Grid>
+    //   ))
+    // ) : (
+    //   <Typography variant="body2">Properties was null</Typography>
+    // );
+
+
     const renderProperties = properties ? (
       properties.map((property) => (
         <Grid item xs={12} sm={6} md={4} key={property.propertyId}>
           <Card>
-                <CardMedia
-                    component="img"
-                    alt={property.name}
-                    height="200"
-                    image={property.photos.img1}
-                    title={property.name}
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {property.name}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {property.description}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Price: ${property.priceForNight} per night
-                    </Typography>
-                </CardContent>
-            </Card>
+            <CardMedia
+              component="img"
+              alt={property.name}
+              height="200"
+              image={property.photos[0]}
+              title={property.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {property.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {property.description.length > 100
+                  ? `${property.description.substring(0, 50)}...`
+                  : property.description}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Price: <Typography component="span" variant="body2" sx={{ fontWeight: 'bold' }}>${property.priceForNight} per night</Typography>
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Link to={`/property/${property.propertyId}`}>
+                <Button variant="outlined" color="primary" size="small">
+                 View Details
+                </Button>
+              </Link>
+            </CardActions>
+          </Card>
         </Grid>
       ))
     ) : (
-      <Typography variant="body2">Properties was null</Typography>
+      <Typography variant="body2">Properties were null</Typography>
     );
 
    

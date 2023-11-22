@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import HomePage from "./pages/HomePage";
 import IndexPage from "./pages/IndexPage";
+import PropertyPage from "./pages/PropertyPage";
 
 
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter(
           element:<HomePage/>
 
         },
+        {
+          path: "property/:propertyId",
+          element:<PropertyPage/>
+        }
   
       ],
     },

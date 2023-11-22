@@ -56,12 +56,34 @@ async function getFilteredProperties(location, checkIn, checkOut, pageNumber, pa
   });
 }
 
+async function getPropertyById(propertyId)
+{
+  const data = properties;
+
+  let property = null;
+    data.forEach(element => {
+      if(element.propertyId==propertyId)
+      {
+        property = element;
+        return;
+        
+      }
+    });
+
+    return property; 
+  
+  
+
+
+}
+
 
 
 
 const FakePropertyAPI = {
     
     getFilteredProperties,
+    getPropertyById,
 
 };
 
