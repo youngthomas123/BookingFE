@@ -15,8 +15,10 @@ export default function PropertyPage()
     description: 'placeholder description',
     location: 'placeholder location',
     pricePerNight: 'placeholder price',
+    mainPhoto :'https://via.placeholder.com/600x400?text=Main+Image',
     photos: [
-      'https://via.placeholder.com/600x400?text=Main+Image',
+      'https://via.placeholder.com/150',
+      'https://via.placeholder.com/150',
       'https://via.placeholder.com/150',
       'https://via.placeholder.com/150',
       'https://via.placeholder.com/150',
@@ -33,10 +35,13 @@ export default function PropertyPage()
     useEffect(()=>
     {
       FakePropertyAPI.getPropertyById(propertyId).then((response)=>{
-        setProperty(response);
-        console.log(response);
-        
+        if(response!=null)
+        {
+          setProperty(response);
+          console.log(response);
 
+        }
+        
       });
       
       
@@ -57,14 +62,14 @@ export default function PropertyPage()
               <CardMedia
                 component="img"
                 height="400"
-                image={property.photos[0]}
+                image={property.mainPhoto}
                 alt={property.name}
               />
             </Card>
           </Grid>
           <Grid item xs={12} md={4}>
             <Grid container spacing={2}>
-              {property.photos.slice(1).map((photo, index) => (
+              {property.photos.map((photo, index) => (
                 <Grid item xs={6} key={index}>
                   <Card>
                     <CardMedia

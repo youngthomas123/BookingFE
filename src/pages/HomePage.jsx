@@ -6,10 +6,12 @@ import { Container } from "@mui/system";
 import SearchFilter from "../components/SearchFilter"
 import dayjs from "dayjs";
 import { useEffect } from "react";
-import FakePropertyAPI from "../mock/fakeAPI/FakePropertyAPI";
+
 import { Link } from 'react-router-dom';
 
-
+//apis
+import FakePropertyAPI from "../mock/fakeAPI/FakePropertyAPI";
+import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
 
 
 
@@ -48,8 +50,11 @@ export default function HomePage()
 
 
   useEffect(()=>{
-    FakePropertyAPI.getFilteredProperties(filter.location, filter.checkIn, filter.checkOut, pagination.currentPage-1, pagination.pageSize)
+    const checkIn = filter.checkIn.format('YYYY-MM-DD');
+    const checkOut = filter.checkOut.format('YYYY-MM-DD');
+    PropertyAPI.getFilteredProperties(filter.location, checkIn, checkOut, pagination.currentPage-1, pagination.pageSize)
     .then((response) => {
+      
       setProperties(response.properties);
       setPagination((prevPagination) => ({
         ...prevPagination,
@@ -122,7 +127,7 @@ export default function HomePage()
               component="img"
               alt={property.name}
               height="200"
-              image={property.photos[0]}
+              image={property.mainPhoto}
               title={property.name}
             />
             <CardContent>

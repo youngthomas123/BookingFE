@@ -87,12 +87,16 @@ const properties = [
         name: "City View Apartment",
         priceForNight: 150,
         landlordId: 14,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[0],
             picture[1],
             picture[2],
             picture[3],
             //extra
+            picture[4],
+            picture[5],
+            
             
           
           
@@ -112,6 +116,7 @@ const properties = [
         name: "Sunset Villa",
         priceForNight: 300,
         landlordId: 15,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[4],
             picture[5],
@@ -130,6 +135,7 @@ const properties = [
         name: "Woodland Retreat",
         priceForNight: 90,
         landlordId: 16,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[8],
             picture[9],
@@ -148,6 +154,7 @@ const properties = [
         name: "Skyline Heights",
         priceForNight: 500,
         landlordId: 17,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[12],
             picture[13],
@@ -166,6 +173,7 @@ const properties = [
         name: "Mountain Hideaway",
         priceForNight: 120,
         landlordId: 18,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[16],
             picture[17],
@@ -184,6 +192,7 @@ const properties = [
         name: "Urban Nest",
         priceForNight: 180,
         landlordId: 19,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[20],
             picture[21],
@@ -202,6 +211,7 @@ const properties = [
         name: "Alpine Haven",
         priceForNight: 250,
         landlordId: 20,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[24],
             picture[25],
@@ -220,6 +230,7 @@ const properties = [
         name: "Sandy Shores Retreat",
         priceForNight: 220,
         landlordId: 21,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[28],
             picture[29],
@@ -238,6 +249,7 @@ const properties = [
         name: "Downtown Loft",
         priceForNight: 100,
         landlordId: 22,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[32],
             picture[33],
@@ -256,6 +268,7 @@ const properties = [
         name: "Lakeside Serenity",
         priceForNight: 80,
         landlordId: 23,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[36],
             picture[37],
@@ -274,6 +287,7 @@ const properties = [
         name: "Green Acres Farmhouse",
         priceForNight: 150,
         landlordId: 24,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[40],
             picture[41],
@@ -292,6 +306,7 @@ const properties = [
         name: "Forest Haven",
         priceForNight: 200,
         landlordId: 25,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[44],
             picture[45],
@@ -310,6 +325,7 @@ const properties = [
         name: "River Vista",
         priceForNight: 130,
         landlordId: 26,
+        mainPhoto : "https://www.dreamtinyliving.com/wp-content/uploads/2023/08/Simple-Tiny-Two-Storey-House-Design-1.jpg",
         photos:[
             picture[48],
             picture[49],
