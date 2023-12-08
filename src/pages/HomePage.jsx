@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 import { Link } from 'react-router-dom';
 
+
 //apis
 import FakePropertyAPI from "../mock/fakeAPI/FakePropertyAPI";
 import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
@@ -17,6 +18,7 @@ import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
 
 export default function HomePage()
 {
+  
 
   const [properties, setProperties] = useState([]);
 
@@ -52,17 +54,18 @@ export default function HomePage()
   useEffect(()=>{
     const checkIn = filter.checkIn.format('YYYY-MM-DD');
     const checkOut = filter.checkOut.format('YYYY-MM-DD');
-    PropertyAPI.getFilteredProperties(filter.location, checkIn, checkOut, pagination.currentPage-1, pagination.pageSize)
-    .then((response) => {
-      
-      setProperties(response.properties);
-      setPagination((prevPagination) => ({
-        ...prevPagination,
-        totalCount: response.totalCount,
-      }));
-    });
 
-
+   
+      PropertyAPI.getFilteredProperties(filter.location, checkIn, checkOut, pagination.currentPage-1, pagination.pageSize)
+      .then((response) => 
+      {
+        
+        setProperties(response.properties);
+        setPagination((prevPagination) => ({
+          ...prevPagination,
+          totalCount: response.totalCount,
+        }));
+      });
 
   },[pagination.currentPage,pagination.totalCount])
 

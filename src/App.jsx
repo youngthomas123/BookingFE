@@ -1,14 +1,17 @@
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 
-import AboutPage from './pages/AboutPage';
-import RootPage from './pages/RootPage';
-import ContactPage from './pages/ContactPage';
-import ErrorPage from './pages/ErrorPage';
+import IndexPage from "./pages/IndexPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import HomePage from "./pages/HomePage";
+import PropertyPage from "./pages/PropertyPage";
+import RootPage from "./pages/RootPage";
+import ErrorPage from "./pages/ErrorPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import HomePage from "./pages/HomePage";
-import IndexPage from "./pages/IndexPage";
-import PropertyPage from "./pages/PropertyPage";
+import AdminPage from "./pages/AdminPage";
+import RequireAuth from "./components/RequireAuth";
+import UnAuthorisedPage from "./pages/UnAuthorisedPage";
 
 
 
@@ -18,6 +21,7 @@ const router = createBrowserRouter(
       path: "/",
       element:  <RootPage />,
       errorElement: <ErrorPage />,
+      
 
      
       
@@ -25,6 +29,10 @@ const router = createBrowserRouter(
       [
         { index: true,
           element: <IndexPage />
+        },
+        {
+          path: "unAuthorised/",
+          element: < UnAuthorisedPage/>,
         },
          
         {
@@ -36,14 +44,28 @@ const router = createBrowserRouter(
           path: "contact/",
           element: <ContactPage />,
         },
+        //protected tenant routes
         {
           path: "home/",
-          element:<HomePage/>
+          element:  <RequireAuth allowedRole={"tenant"}>
+                      <HomePage/>
+                    </RequireAuth>
 
         },
         {
           path: "property/:propertyId",
-          element:<PropertyPage/>
+          element:  <RequireAuth allowedRole={"tenant"}>
+                      <PropertyPage/>
+                    </RequireAuth>
+        },
+        //protected landlord routes 
+
+        //protected admin routes 
+        {
+          path: "admin/",
+          element:  <RequireAuth allowedRole={"admin"}>
+                      <AdminPage/>
+                    </RequireAuth>
         }
   
       ],
@@ -62,12 +84,23 @@ const router = createBrowserRouter(
 
 
 
+
+
+
 export default function App() 
 {
-    return(
-        <>
-        <RouterProvider router={router} />
-        </>
-    );
+
+
+  
+      return(
+          <>
+           
+            <RouterProvider router={router} />
+           
+          </>
+      );
+
+
+ 
 }
     
