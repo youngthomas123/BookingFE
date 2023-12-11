@@ -4,36 +4,33 @@ const baseUrl = Config.baseUrl;
 
 
 
-async function login(username, password) 
-{
-    const response = await fetch(`${baseUrl}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({   
-        username: username,
-        password: password
-      })
-    });
-   
-  
-    if (response.ok) 
-    {
-      const data = await response.json(); 
-      localStorage.setItem('token', data.accessToken);
-      return "success";
-      
+async function login(username, password)
+ {
+  const url = `${baseUrl}/login`;
+  const body = JSON.stringify({ username, password });
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    } else 
-    {
-      console.error('Login failed:', response);
-      return "fail";
-    }
+  try
+  {
+    const response = await fetch(url,{
+      method: 'POST',
+      headers,
+      body,
+    });
+    return response;
+  }
+  catch(error)
+  {
+    console.log("API error login(...)");
+    throw error;
+  }
+
 }
 
 const LoginAPI = {
-    login,
+  login,
 };
 
 export default LoginAPI;

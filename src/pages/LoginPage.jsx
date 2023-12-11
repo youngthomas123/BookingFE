@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import LoginAPI from '../APIs/BookingSiteAPI/LoginAPi';
+import { useState } from 'react';
 
 import UserHelper from '../util/UserHelper';
 
@@ -18,43 +19,51 @@ import UserHelper from '../util/UserHelper';
 
 export default function LoginPage() 
 {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const navigate = useNavigate();
-  
 
-
-  const handleSubmit = (event) => 
+  const handleSubmit =(event) => 
   {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const username = data.get('username');
+    const password = data.get('password');
 
-      const username = data.get('username');
-      const password = data.get('password');
-
-        LoginAPI.login(username, password)
-        .then((response)=>
-        {
-          if(response == "success")
+    LoginAPI.login(username, password)
+    .then((response)=>{
+      if(response.ok)
+      {
+        response.json()
+        .then((data)=>{
+          localStorage.setItem('token', data.accessToken);  //seting the token in local storage
+          console.log("Successfully logged in");
+          const user = UserHelper.getUserFromToken();
+          if(user.role === "tenant")
           {
-            console.log("successfully logged in ")
-            const user = UserHelper.getUserFromToken();
-            if(user.role =="tenant")
-            {
-              navigate("/home");
-            }
-            else if(user.role == "admin")
-            {
-              navigate("/admin");
-            }
-
+            navigate("/home");
           }
-          else if (response == "fail")
+          else if(user.role === "admin")
           {
-            console.log("failed to login")
+            navigate("/admin");
           }
-        });
+          //add else if for landlord
+        })
       }
-      
-   
+      else if (response.status ==401)
+      {
+        console.log("Failed to login: Incorrect Username or Password");
+        setErrorMessage('Username or password is incorrect. Please try again.');
+      }
+
+    })
+    .catch((error)=>
+    {
+      console.log("Error from API in LoginPage: " + error.message)
+      setErrorMessage('Network error, '+error.message);
+    })
+  }
+  
     return (
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -93,6 +102,7 @@ export default function LoginPage()
                 id="password"
                 autoComplete="current-password"
               />
+             
               <Button
                 type="submit"
                 fullWidth
@@ -109,8 +119,13 @@ export default function LoginPage()
                 </Grid>
               </Grid>
             </Box>
+            {errorMessage && (
+              <Typography variant="subtitle2" color="error" align="center">
+               {errorMessage}
+              </Typography>
+            )}
           </Box>
         </Container>
       
     );
-  }
+}

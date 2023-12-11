@@ -55,17 +55,34 @@ export default function HomePage()
     const checkIn = filter.checkIn.format('YYYY-MM-DD');
     const checkOut = filter.checkOut.format('YYYY-MM-DD');
 
-   
-      PropertyAPI.getFilteredProperties(filter.location, checkIn, checkOut, pagination.currentPage-1, pagination.pageSize)
-      .then((response) => 
+    PropertyAPI.getFilteredProperties(filter.location, checkIn, checkOut, pagination.currentPage-1, pagination.pageSize)
+    .then((response)=>
+    {
+      if(response.ok)
       {
-        
-        setProperties(response.properties);
-        setPagination((prevPagination) => ({
-          ...prevPagination,
-          totalCount: response.totalCount,
-        }));
-      });
+        response.json()
+        .then((data)=>
+        {
+          setProperties(data.properties);
+          setPagination((prevPagination)=>({
+            ...prevPagination,
+            totalCount : data.totalCount,
+          }));
+          
+        })
+      }
+      else if (response.status ==401)
+      {
+        console.log("401");
+      }
+    })
+    .catch((error)=>
+    {
+      console.log("Network error, ", error.message);
+      setProperties(null);
+    })
+
+
 
   },[pagination.currentPage,pagination.totalCount])
 

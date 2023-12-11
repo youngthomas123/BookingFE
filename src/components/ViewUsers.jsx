@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserAPI from "../APIs/BookingSiteAPI/UserAPI";
+import { Construction } from '@mui/icons-material';
 
 
 
@@ -8,16 +9,30 @@ function ViewUsers() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const usersData = await UserAPI.getAllUsers(); // Fixed the function call
-        setUsers(usersData);
-      } catch (error) {
-        setError(error);
+   
+    UserAPI.getAllUsers()
+    .then((response)=>
+    {
+      if(response.ok)
+      {
+        response.json()
+        .then((data)=>
+        {
+          setUsers(data);
+        })
       }
-    }
+      else if(response.status ==401)
+      {
+        console.log("401")
+      }
+      
+    })
+    .catch((error)=>
+    {
+      console.log("Error from API in viewUsers component" + error);
+      setError(error);
+    })
 
-    fetchData();
   }, []);
 
   if (error) {

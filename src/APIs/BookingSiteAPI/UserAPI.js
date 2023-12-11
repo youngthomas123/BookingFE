@@ -1,30 +1,91 @@
 import Config from "./Config";
 const baseUrl = Config.baseUrl;
 
-async function getAllUsers() {
+
+async function getAllUsers() 
+{
+  
   const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+  const url = `${baseUrl}/users`;
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`, // Include the token in the Authorization header
   };
 
-  const response = await fetch(`${baseUrl}/users`, {
-    method: 'GET',
-    headers: headers,
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch users');
+  try
+  {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: headers,
+    });
+    return response;
+  }
+  catch(error)
+  {
+    console.log("API error getAllUsers()");
+    throw error;
   }
 
-  return response.json();
 }
-async function getUserById(id) {
-  const response = await fetch(`${baseUrl}/users/${id}`);
-  if (!response.ok) {
-    throw  Error('Failed to fetch user');
+
+
+async function getUserById(id) 
+{
+  const token = localStorage.getItem('token');
+  const url = `${baseUrl}/users/${id}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+  };
+  try
+  {
+    const response = await fetch(url, {
+      method : 'GET',
+      headers : headers,
+    });
+
+    return response;
+
   }
-  return response.json();
+  catch(error)
+  {
+    console.log("API error getUserById()")
+    throw error;
+  }
+
+}
+
+
+
+async function signIn(username, password, type)  // no auth required
+{
+  const url = `${baseUrl}/users`; 
+  const body = JSON.stringify({ 
+    username : username,
+    password : password,
+    type     : type
+  });
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  try
+  {
+    const response = await fetch(url,{
+      method : 'POST',
+      headers : headers,
+      body : body,
+    });
+
+    return response;
+
+  }
+  catch(error)
+  {
+    console.log("API error signIn()");
+    throw error;
+  }
+
 }
 
 
@@ -32,6 +93,7 @@ async function getUserById(id) {
 const UserAPI = {
   getAllUsers,
   getUserById,
+  signIn,
 };
 
 export default UserAPI;

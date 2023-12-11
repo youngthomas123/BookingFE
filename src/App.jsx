@@ -12,6 +12,7 @@ import SignUpPage from "./pages/SignUpPage";
 import AdminPage from "./pages/AdminPage";
 import RequireAuth from "./components/RequireAuth";
 import UnAuthorisedPage from "./pages/UnAuthorisedPage";
+import ProfilePage from "./pages/ProfilePage";
 
 
 
@@ -44,29 +45,36 @@ const router = createBrowserRouter(
           path: "contact/",
           element: <ContactPage />,
         },
-        //protected tenant routes
+
+        //protected routes
         {
           path: "home/",
-          element:  <RequireAuth allowedRole={"tenant"}>
+          element:  <RequireAuth allowedRoles={['tenant']}>
                       <HomePage/>
                     </RequireAuth>
 
         },
         {
           path: "property/:propertyId",
-          element:  <RequireAuth allowedRole={"tenant"}>
+          element:  <RequireAuth allowedRoles={['tenant']}>
                       <PropertyPage/>
                     </RequireAuth>
         },
-        //protected landlord routes 
 
-        //protected admin routes 
+        {
+          path : "profile/:userId",
+          element : <RequireAuth allowedRoles={['tenant','landlord','admin']}>
+                      <ProfilePage/>
+                    </RequireAuth>
+        },
+    
         {
           path: "admin/",
-          element:  <RequireAuth allowedRole={"admin"}>
+          element:  <RequireAuth allowedRoles={['admin']}>
                       <AdminPage/>
                     </RequireAuth>
-        }
+        },
+       
   
       ],
     },
@@ -103,4 +111,3 @@ export default function App()
 
  
 }
-    

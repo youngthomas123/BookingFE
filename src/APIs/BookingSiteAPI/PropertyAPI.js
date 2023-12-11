@@ -11,18 +11,20 @@ async function getFilteredProperties(location, checkIn, checkOut, pageNumber, pa
   
     const url = `${baseUrl}/properties?location=${location}&checkIn=${checkIn}&checkOut=${checkOut}&page=${pageNumber}&size=${pageSize}`;
   
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: headers,
-    });
-    if(response.ok)
+    try
     {
-      
-      return response.json();
+      const response = await fetch(url,{
+        method : 'GET',
+        headers : headers,
+      })
+      return response;
     }
-    
+    catch(error)
+    {
+      console.log("API error getFIlteredProperties(...)")
+      throw error;
+    }
   
-    
   }
 
 

@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import UserHelper from '../util/UserHelper';
+import Logout from './LogOut';
 
 const NavBar = () =>
  {
@@ -20,7 +21,7 @@ const NavBar = () =>
       //tenant links
       navLinks =[
         <Link key="home" to="/home"><Button color="inherit">Home</Button></Link>,
-
+        <Link key="profile" to={`/profile/${user.userId}`}><Button color="inherit">profile</Button></Link>,
       ];
     }
     else if (user.role =="landlord")
@@ -30,6 +31,10 @@ const NavBar = () =>
     else if(user.role == "admin")
     {
       //admin links
+      navLinks =[
+        <Link key="adminPanel" to="/admin"><Button color="inherit">AdminPanel</Button></Link>,
+        <Link key="profile" to={`/profile/${user.userId}`}><Button color="inherit">profile</Button></Link>,
+      ];
     }
   }
   else if (user ==null || isTokenExpired ==true)
@@ -37,6 +42,7 @@ const NavBar = () =>
     //public links
    navLinks = 
    [ 
+   <Link key="BookingSite" to="/"><Button color="inherit">BookingSite</Button></Link>,
    <Link key="about" to="/about"><Button color="inherit">about</Button></Link>,
    <Link key="contact" to="/contact"><Button color="inherit">contact</Button></Link>,
    <Link key="login" to="/login"><Button color="inherit">login</Button></Link>,
@@ -55,8 +61,8 @@ const NavBar = () =>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           BookingSite
         </Typography>
-
         {navLinks}
+        {user != null && isTokenExpired==false ? <Logout /> : null}
         
       </Toolbar>
     </AppBar>
