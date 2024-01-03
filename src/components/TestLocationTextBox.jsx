@@ -16,7 +16,7 @@ export default function TestLocationTextBox({setLocation})
       
         onInputChange={(event,location)=>setLocation(location)}
         
-       defaultValue={"USA"}
+       defaultValue={""}
         renderInput={(params) => <TextField {...params} label="Add location" />}
       />
     )

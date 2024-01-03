@@ -13,6 +13,9 @@ import AdminPage from "./pages/AdminPage";
 import RequireAuth from "./components/RequireAuth";
 import UnAuthorisedPage from "./pages/UnAuthorisedPage";
 import ProfilePage from "./pages/ProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
+import EnlistPropertyPage from "./pages/EnlistPropertyPage";
+import LandLordPage from "./pages/LandLordPage";
 
 
 
@@ -67,13 +70,34 @@ const router = createBrowserRouter(
                       <ProfilePage/>
                     </RequireAuth>
         },
-    
+
+        {
+          path : "editprofile/:userId",
+          element : <RequireAuth allowedRoles={['tenant','landlord','admin']}>
+                      <EditProfilePage/>
+                    </RequireAuth>
+        },
+
         {
           path: "admin/",
           element:  <RequireAuth allowedRoles={['admin']}>
                       <AdminPage/>
                     </RequireAuth>
         },
+
+        {
+          path: "enlistProperty/",
+          element:  <RequireAuth allowedRoles={['landlord']}>
+                      <EnlistPropertyPage/>
+                    </RequireAuth>
+        },
+        {
+          path: "landlord/",
+          element:  <RequireAuth allowedRoles={['landlord']}>
+                      <LandLordPage/>
+                    </RequireAuth>
+        },
+        
        
   
       ],

@@ -8,7 +8,7 @@ import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
 import { useEffect, useMemo, useState, useRef } from 'react';
 
-const GOOGLE_MAPS_API_KEY = '';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyDfBrts8onyrs60leHMVa2Z6T5DI4jLeJo';
 
 function loadScript(src, position, id) {
   if (!position) {
@@ -147,3 +147,8 @@ export default function LocationTextBox() {
     />
   );
 }
+
+
+
+
+

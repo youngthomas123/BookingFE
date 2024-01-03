@@ -42,7 +42,7 @@ export default function SignUpPage()
             setError('');
             navigate('/login');
           }
-          else if (response.status ==401)
+          else if (response.status ==400)
           {
             setError('Username already taken, try again with a different username.');
           }

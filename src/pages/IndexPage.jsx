@@ -21,7 +21,7 @@ export default function IndexPage()
             }}
           >
             <img
-              src="https://www.bls.gov/spotlight/2022/housing-leases-in-the-u-s-rental-market/images/intro.jpg" 
+              src="http://localhost:3000/Images/FrontPageImage" 
               alt="Landing Page"
               style={{ width: '100%', maxWidth: '100%', borderRadius: '10px' }}
             />

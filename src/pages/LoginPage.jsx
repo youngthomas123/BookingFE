@@ -47,10 +47,13 @@ export default function LoginPage()
           {
             navigate("/admin");
           }
-          //add else if for landlord
+          else if (user.role ==="landlord")
+          {
+            navigate("/landlord");
+          }
         })
       }
-      else if (response.status ==401)
+      else if (response.status ==400)
       {
         console.log("Failed to login: Incorrect Username or Password");
         setErrorMessage('Username or password is incorrect. Please try again.');

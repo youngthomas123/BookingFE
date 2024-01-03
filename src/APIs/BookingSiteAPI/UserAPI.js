@@ -88,12 +88,45 @@ async function signIn(username, password, type)  // no auth required
 
 }
 
+async function updateUserById(id, phoneNumber, email, bio, profilePic) 
+{
+  const token = localStorage.getItem('token');
+  const formData = new FormData();
+
+  formData.append('phoneNumber', phoneNumber);
+  formData.append('email', email);
+  formData.append('bio', bio);
+  formData.append('imageFile', profilePic); 
+
+  const url = `${baseUrl}/users/${id}`;
+  const headers = {
+    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+  };
+  try 
+  {
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: headers,
+      body: formData,
+    });
+
+    return response;
+  } 
+  catch (error) 
+  {
+    console.log('API error updateUserById()', error);
+    throw error;
+  }
+}
+
+
 
 
 const UserAPI = {
   getAllUsers,
   getUserById,
   signIn,
+  updateUserById,
 };
 
 export default UserAPI;

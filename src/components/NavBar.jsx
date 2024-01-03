@@ -27,6 +27,11 @@ const NavBar = () =>
     else if (user.role =="landlord")
     {
       //landlord links
+      navLinks =[
+        <Link key="landlordPanel" to="/landlord"><Button color="inherit">LandlordPanel</Button></Link>,
+        <Link key="profile" to={`/profile/${user.userId}`}><Button color="inherit">profile</Button></Link>,
+      ];
+
     }
     else if(user.role == "admin")
     {
