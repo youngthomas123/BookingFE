@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { Grid, TextField, Button, Typography, Container, Paper, Box } from '@mui/material';
 
 import PropertyAPI from '../APIs/BookingSiteAPI/PropertyAPI';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function EnlistPropertyPage()
 {
   const [mainPhoto, setMainPhoto] = useState('');
   const [otherPhotos, setOtherPhotos] = useState([]);
+
+  const navigate = useNavigate();
 
 
   const handleMainPhotoChange = (event) => {
@@ -84,6 +87,7 @@ export default function EnlistPropertyPage()
         if(response.status ==201)
         {
           console.log("Enlisting created successfully");
+          navigate('/landlord');
         }
         else
         {

@@ -1,63 +1,100 @@
 import { useNavigate } from 'react-router-dom';
 import { Container, Grid, Typography, Card, CardMedia, CardActions, Button, Box,  } from '@mui/material';
 import { useEffect, useState } from 'react';
+import PropertyAPI from '../APIs/BookingSiteAPI/PropertyAPI';
+import UserHelper from "../util/UserHelper"
+
 
 export default function LandLordPage() 
 {
-  const testProperties = [
-    {
-      id: 1,
-      name: 'Property 1',
-      mainPhoto: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 2,
-      name: 'Property 2',
-      mainPhoto: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 3,
-      name: 'Property 3',
-      mainPhoto: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 4,
-      name: 'Property 4',
-      mainPhoto: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 5,
-      name: 'Property 5',
-      mainPhoto: 'https://via.placeholder.com/150',
-    },
-    
-  ];
+  
 
   const [properties, setProperties] = useState([])
+
+  const user = UserHelper.getUserFromToken();
+
+
   
   
 
   useEffect(()=>{
     // call the api to get all the landlords properties
     //set to state
-    setProperties(testProperties);
+    
+    PropertyAPI.getLandlordPropertiesById(user.userId)
+    .then((response)=>{
+      if(response.ok)
+      {
+        response.json()
+        .then((data)=>{
+          setProperties(data.properties);
+          console.log(data.properties);
+        })
+      }
+      else if (response.status ==403)
+      {
+        console.log("403");
+      }
+    })
+    .catch((error)=>{
+      console.log("error : "+error)
+    })
+
+    
 
 
   },[])
 
   const navigate = useNavigate();
 
-  function handleEnlistButtonClick()
+  function handleEnlistButtonClick(propertyId)
   {
     //enlist button
+    const status = "enlist";
+    console.log("propertyId : "+propertyId + " status : "+status);
+    PropertyAPI.updatePropertyStatus(propertyId, status)
+    .then((response)=>{
+      if(response.ok)
+      {
+        console.log("updated status");
+        window.location.reload(); // Refresh the page
+      }
+      else
+      {
+        console.log(response.status);
+      }
+    })
+    .catch((error)=>{
+      console.log("error : "+error);
+     })
+  
   }
 
-  function handleDelistButtonClick()
+  function handleDelistButtonClick(propertyId)
   {
     //delist button
+    const status = "delist";
+    console.log("propertyId : "+propertyId + " status : "+status);
+    
+   PropertyAPI.updatePropertyStatus(propertyId,status)
+   .then((response)=>{
+    if(response.ok)
+    {
+      console.log("updated status");
+      window.location.reload(); // Refresh the page
+      
+    }
+    else
+    {
+      console.log(response.status);
+    }
+   })
+   .catch((error)=>{
+    console.log("error : "+error);
+   })
   }
 
-  function handleRemoveButtonClick()
+  function handleRemoveButtonClick(propertyId)
   {
     //remove button
   }
@@ -87,19 +124,19 @@ export default function LandLordPage()
               width="200"
               height="150"
               image={property.mainPhoto}
-              alt={property.name}
+              alt={property.propertyName}
             />
             <Typography variant="subtitle1" align="center" gutterBottom>
-              {property.name}
+              {property.propertyName}
             </Typography>
             <CardActions>
-              <Button size="small" variant="outlined" color='success' disabled>
+              <Button size="small" variant="outlined" color='success' disabled={property.enlisted} onClick={()=> handleEnlistButtonClick(property.id)}>
                 Enlist
               </Button>
-              <Button size="small" variant="outlined" color='error'>
+              <Button size="small" variant="outlined" color='error' disabled={!property.enlisted} onClick={() => handleDelistButtonClick(property.id)}>
                 Delist
               </Button>
-              <Button size="small" variant="outlined" color='info'>
+              <Button size="small" variant="outlined" color='info' disabled={property.enlisted || property.outstandingBooking} onClick={()=>handleRemoveButtonClick(property.id)}>
                 Remove
               </Button>
             </CardActions>

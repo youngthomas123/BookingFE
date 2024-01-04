@@ -92,12 +92,65 @@ async function getPropertyById(id)
 
 }
 
+async function getLandlordPropertiesById(id)
+{
+  const token = localStorage.getItem('token');
+  const url = `${baseUrl}/properties/landlord/${id}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+  };
+  try
+  {
+    const response = await fetch(url, {
+      method : 'GET',
+      headers : headers,
+    });
+
+    return response;
+
+  }
+  catch(error)
+  {
+    console.log("API error getLandlordPropertiesById()")
+    throw error;
+  }
+}
+
+async function updatePropertyStatus(propertyId, status)
+{
+  const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+    };
+  
+    const url = `${baseUrl}/properties/${propertyId}?status=${status}`;
+  
+    try
+    {
+      const response = await fetch(url,{
+        method : 'PUT',
+        headers : headers,
+      })
+      return response;
+    }
+    catch(error)
+    {
+      console.log("API error updatePropertyStatus()")
+      throw error;
+    }
+
+}
+
 
 const PropertyAPI = {
     
     getFilteredProperties,
     createPropertyEnlisting,
-    getPropertyById
+    getPropertyById,
+    getLandlordPropertiesById,
+    updatePropertyStatus
     
 
 };

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import FakePropertyAPI from '../mock/fakeAPI/FakePropertyAPI';
 import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
 
-import { Typography, Grid, Card, CardContent, CardMedia, Container } from '@mui/material';
+import { Typography, Grid, Card, CardContent, CardMedia, Container, Button} from '@mui/material';
 
 
 export default function PropertyPage()
@@ -152,15 +151,114 @@ export default function PropertyPage()
     //   </Container>
     // );
 
+    // return (
+    //   <Container maxWidth="lg" sx={{ mt: 4 }}>
+    //     <Typography variant="h4" gutterBottom>
+    //       {property.name}
+    //     </Typography>
+    //     <Grid container spacing={3}>
+    //       <Grid item xs={12} md={8}>
+    //         {/* Main photo */}
+    //         <Card>
+    //           <CardMedia
+    //             component="img"
+    //             height="400"
+    //             image={property.mainPhoto}
+    //             alt={property.name}
+    //           />
+    //         </Card>
+    //       </Grid>
+    //       <Grid item xs={12} md={4}>
+    //         {/* Other photos */}
+    //         <Grid container spacing={2}>
+    //           {property.photos.map((photo, index) => (
+    //             <Grid item xs={6} key={index}>
+    //               <Card>
+    //                 <CardMedia
+    //                   component="img"
+    //                   height="100"
+    //                   image={photo}
+    //                   alt={`Property ${index}`}
+    //                 />
+    //               </Card>
+    //             </Grid>
+    //           ))}
+    //         </Grid>
+    //       </Grid>
+    //       {/* Description */}
+    //       <Grid item xs={12} md={8}>
+    //         <Card>
+    //           <CardContent>
+    //             <Typography variant="h6" gutterBottom>
+    //               Description:
+    //             </Typography>
+    //             <Typography variant="body1" paragraph>
+    //               {property.description}
+    //             </Typography>
+    //           </CardContent>
+    //         </Card>
+    //       </Grid>
+    //       {/* Location */}
+    //       <Grid item xs={12} md={8}>
+    //         <Card>
+    //           <CardContent>
+    //             <Typography variant="h6" gutterBottom>
+    //               Location:
+    //             </Typography>
+    //             <Typography variant="body1" paragraph>
+    //               {property.location}
+    //             </Typography>
+    //           </CardContent>
+    //         </Card>
+    //       </Grid>
+    //       {/* Price per Night */}
+    //       <Grid item xs={12} md={8}>
+    //         <Card>
+    //           <CardContent>
+    //             <Typography variant="h6" gutterBottom>
+    //               Price per Night:
+    //             </Typography>
+    //             <Typography variant="body1" paragraph>
+    //               {property.pricePerNight}
+    //             </Typography>
+    //           </CardContent>
+    //         </Card>
+    //       </Grid>
+    //       {/* Additional Information */}
+    //       <Grid item xs={12} md={4}>
+    //         <Card>
+    //           <CardContent>
+    //             <Typography variant="h6" gutterBottom>
+    //               Additional Information:
+    //             </Typography>
+    //             <Typography variant="body1" paragraph>
+    //               Additional details here...
+    //             </Typography>
+    //             {/* More details for the small area */}
+    //           </CardContent>
+    //         </Card>
+    //       </Grid>
+    //     </Grid>
+    //   </Container>
+    // );
+
+
+
+    //semi
+
+
+
+
+
+
     return (
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth="lg" style={{ marginTop: '20px' }}>
         <Typography variant="h4" gutterBottom>
           {property.name}
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            {/* Main photo */}
-            <Card>
+            <Card style={{ marginBottom: '20px' }}>
               <CardMedia
                 component="img"
                 height="400"
@@ -168,16 +266,56 @@ export default function PropertyPage()
                 alt={property.name}
               />
             </Card>
+            <Card style={{ marginBottom: '10px' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Description:
+                </Typography>
+                <Typography variant="body1">
+                  {property.description}
+                </Typography>
+              </CardContent>
+            </Card>
+            <Card style={{ marginBottom: '10px' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Location:
+                </Typography>
+                <Typography variant="body1">
+                  {property.location}
+                </Typography>
+              </CardContent>
+            </Card>
+            <Card style={{ marginBottom: '20px' }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Price per Night:
+                </Typography>
+                <Typography variant="body1">
+                  {property.pricePerNight}
+                </Typography>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  Booking Information:
+                </Typography>
+                <Typography variant="body1">
+                  Additional details here...
+                </Typography>
+                {/* More details for the small area */}
+              </CardContent>
+            </Card>
           </Grid>
           <Grid item xs={12} md={4}>
-            {/* Other photos */}
             <Grid container spacing={2}>
               {property.photos.map((photo, index) => (
                 <Grid item xs={6} key={index}>
                   <Card>
                     <CardMedia
                       component="img"
-                      height="100"
+                      height="200"
                       image={photo}
                       alt={`Property ${index}`}
                     />
@@ -186,63 +324,12 @@ export default function PropertyPage()
               ))}
             </Grid>
           </Grid>
-          {/* Description */}
-          <Grid item xs={12} md={8}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Description:
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  {property.description}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          {/* Location */}
-          <Grid item xs={12} md={8}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Location:
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  {property.location}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          {/* Price per Night */}
-          <Grid item xs={12} md={8}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Price per Night:
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  {property.pricePerNight}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          {/* Additional Information */}
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Additional Information:
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  Additional details here...
-                </Typography>
-                {/* More details for the small area */}
-              </CardContent>
-            </Card>
-          </Grid>
         </Grid>
       </Container>
     );
-    
+
+  
+  
     
   
   
