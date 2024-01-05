@@ -66,10 +66,10 @@ async function createPropertyEnlisting(name, description, location, price, mainP
 
 }
 
-async function getPropertyById(id)
+async function getPropertyById(id, checkin, checkout)
 {
   const token = localStorage.getItem('token');
-  const url = `${baseUrl}/properties/${id}`;
+  const url = `${baseUrl}/properties/${id}?checkin=${checkin}&checkout=${checkout}`;
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`, // Include the token in the Authorization header

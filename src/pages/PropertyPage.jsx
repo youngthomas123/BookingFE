@@ -2,13 +2,26 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
 
-import { Typography, Grid, Card, CardContent, CardMedia, Container, Button} from '@mui/material';
+import { Typography, Grid, Card, CardContent, CardMedia, Container, Button, Box} from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 
 export default function PropertyPage()
 {
+  //test
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const CheckinDate = queryParams.get('checkin');
+  const CheckoutDate = queryParams.get('checkout');
+  const [checkIn, setCheckIn] = useState(CheckinDate);
+  const [checkOut, setCheckOut] = useState(CheckoutDate);
+
 
   const {propertyId} = useParams();
+
+  
+  
 
   const [property, setProperty] = useState({
     Id: 0,
@@ -26,16 +39,21 @@ export default function PropertyPage()
       'http://localhost:3000/Images/HousePlaceHolder',
       
     ],
+    hasConflictingBookings : true
+
+    
     
  
 
   });// add random paceholder
 
+
+
     
 
     useEffect(()=>
     {
-      PropertyAPI.getPropertyById(propertyId)
+      PropertyAPI.getPropertyById(propertyId, checkIn, checkOut)
       .then((response)=>
       {
         if(response.ok)
@@ -43,6 +61,7 @@ export default function PropertyPage()
           response.json()
           .then((data)=>
           {
+            
             setProperty({
               ...property,
               id : data.propertyPageDTO.propertyId,
@@ -51,13 +70,18 @@ export default function PropertyPage()
               location : data.propertyPageDTO.location,
               pricePerNight : data.propertyPageDTO.pricePerNight,
               mainPhoto : data.propertyPageDTO.mainPhoto,
-              photos : data.propertyPageDTO.otherPhotos
+              photos : data.propertyPageDTO.otherPhotos,
+              hasConflictingBookings : data.propertyPageDTO.hasConflictingBookings
             })
+            console.log(checkIn);
+            console.log(checkOut);
           })
+          
         }
         else
         {
           console.log(response.status);
+
         }
       })
       .catch((error)=>{
@@ -68,185 +92,6 @@ export default function PropertyPage()
       
 
     },[])
-
-
-
-
-    // return (
-    //   <Container maxWidth="lg" sx={{ mt: 4 }}>
-    //     <Typography variant="h4" gutterBottom>
-    //       {property.name}
-    //     </Typography>
-    //     <Grid container spacing={3}>
-    //       <Grid item xs={12} md={8}>
-    //         <Card>
-    //           <CardMedia
-    //             component="img"
-    //             height="400"
-    //             image={property.mainPhoto}
-    //             alt={property.name}
-    //           />
-    //         </Card>
-    //       </Grid>
-    //       <Grid item xs={12} md={4}>
-    //         <Grid container spacing={2}>
-    //           {property.photos.map((photo, index) => (
-    //             <Grid item xs={6} key={index}>
-    //               <Card>
-    //                 <CardMedia
-    //                   component="img"
-    //                   height="100"
-    //                   image={photo}
-    //                   alt={`Property ${index}`}
-    //                 />
-    //               </Card>
-    //             </Grid>
-    //           ))}
-    //         </Grid>
-    //       </Grid>
-    //       <Grid item xs={12}>
-    //         <Grid container spacing={3}>
-    //           <Grid item xs={12} md={8}>
-    //             <Card>
-    //               <CardContent>
-    //                 <Typography variant="h6" gutterBottom>
-    //                   Description:
-    //                 </Typography>
-    //                 <Typography variant="body1" paragraph>
-    //                   {property.description}
-    //                 </Typography>
-    //                 <Typography variant="h6" gutterBottom>
-    //                   Location:
-    //                 </Typography>
-    //                 <Typography variant="body1" paragraph>
-    //                   {property.location}
-    //                 </Typography>
-    //                 <Typography variant="h6" gutterBottom>
-    //                   Price per Night:
-    //                 </Typography>
-    //                 <Typography variant="body1" paragraph>
-    //                   {property.pricePerNight}
-    //                 </Typography>
-    //                 {/* Add more property details here */}
-    //               </CardContent>
-    //             </Card>
-    //           </Grid>
-    //           <Grid item xs={12} md={4}>
-    //             {/* Add content for the small area */}
-    //             <Card>
-    //               <CardContent>
-    //                 <Typography variant="h6" gutterBottom>
-    //                   Additional Information:
-    //                 </Typography>
-    //                 <Typography variant="body1" paragraph>
-    //                   Additional details here...
-    //                 </Typography>
-    //                 {/* Add more details for the small area */}
-    //               </CardContent>
-    //             </Card>
-    //           </Grid>
-    //         </Grid>
-    //       </Grid>
-    //     </Grid>
-    //   </Container>
-    // );
-
-    // return (
-    //   <Container maxWidth="lg" sx={{ mt: 4 }}>
-    //     <Typography variant="h4" gutterBottom>
-    //       {property.name}
-    //     </Typography>
-    //     <Grid container spacing={3}>
-    //       <Grid item xs={12} md={8}>
-    //         {/* Main photo */}
-    //         <Card>
-    //           <CardMedia
-    //             component="img"
-    //             height="400"
-    //             image={property.mainPhoto}
-    //             alt={property.name}
-    //           />
-    //         </Card>
-    //       </Grid>
-    //       <Grid item xs={12} md={4}>
-    //         {/* Other photos */}
-    //         <Grid container spacing={2}>
-    //           {property.photos.map((photo, index) => (
-    //             <Grid item xs={6} key={index}>
-    //               <Card>
-    //                 <CardMedia
-    //                   component="img"
-    //                   height="100"
-    //                   image={photo}
-    //                   alt={`Property ${index}`}
-    //                 />
-    //               </Card>
-    //             </Grid>
-    //           ))}
-    //         </Grid>
-    //       </Grid>
-    //       {/* Description */}
-    //       <Grid item xs={12} md={8}>
-    //         <Card>
-    //           <CardContent>
-    //             <Typography variant="h6" gutterBottom>
-    //               Description:
-    //             </Typography>
-    //             <Typography variant="body1" paragraph>
-    //               {property.description}
-    //             </Typography>
-    //           </CardContent>
-    //         </Card>
-    //       </Grid>
-    //       {/* Location */}
-    //       <Grid item xs={12} md={8}>
-    //         <Card>
-    //           <CardContent>
-    //             <Typography variant="h6" gutterBottom>
-    //               Location:
-    //             </Typography>
-    //             <Typography variant="body1" paragraph>
-    //               {property.location}
-    //             </Typography>
-    //           </CardContent>
-    //         </Card>
-    //       </Grid>
-    //       {/* Price per Night */}
-    //       <Grid item xs={12} md={8}>
-    //         <Card>
-    //           <CardContent>
-    //             <Typography variant="h6" gutterBottom>
-    //               Price per Night:
-    //             </Typography>
-    //             <Typography variant="body1" paragraph>
-    //               {property.pricePerNight}
-    //             </Typography>
-    //           </CardContent>
-    //         </Card>
-    //       </Grid>
-    //       {/* Additional Information */}
-    //       <Grid item xs={12} md={4}>
-    //         <Card>
-    //           <CardContent>
-    //             <Typography variant="h6" gutterBottom>
-    //               Additional Information:
-    //             </Typography>
-    //             <Typography variant="body1" paragraph>
-    //               Additional details here...
-    //             </Typography>
-    //             {/* More details for the small area */}
-    //           </CardContent>
-    //         </Card>
-    //       </Grid>
-    //     </Grid>
-    //   </Container>
-    // );
-
-
-
-    //semi
-
-
 
 
 
@@ -296,17 +141,29 @@ export default function PropertyPage()
                 </Typography>
               </CardContent>
             </Card>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Booking Information:
-                </Typography>
-                <Typography variant="body1">
-                  Additional details here...
-                </Typography>
-                {/* More details for the small area */}
-              </CardContent>
-            </Card>
+            <Card variant="outlined">
+      <CardContent>
+        <Typography variant="h6" gutterBottom>
+          Booking Information
+        </Typography>
+        <Box display="flex" flexDirection="column">
+          <Typography variant="body1" gutterBottom>
+            <strong>Check-In:</strong> {checkIn}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            <strong>Check-Out:</strong> {checkOut}
+          </Typography>
+          <Button
+            size="small"
+            variant="contained"
+            disabled={property.hasConflictingBookings}
+            color="primary"
+          >
+            Book Now
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
           </Grid>
           <Grid item xs={12} md={4}>
             <Grid container spacing={2}>

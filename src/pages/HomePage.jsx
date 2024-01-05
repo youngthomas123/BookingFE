@@ -7,17 +7,17 @@ import SearchFilter from "../components/SearchFilter"
 import dayjs from "dayjs";
 import { useEffect } from "react";
 
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 
 //apis
-import FakePropertyAPI from "../mock/fakeAPI/FakePropertyAPI";
 import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
 
 
 
 export default function HomePage()
 {
+  const navigate = useNavigate();
   
 
   const [properties, setProperties] = useState([]);
@@ -92,51 +92,28 @@ export default function HomePage()
 
   function handlePageChange(event,page)
   {
-    
-
     setPagination(
       {
         ...pagination,
         currentPage : page,
       }
     )
+  }
 
-    
+  
+
+  function handleViewDetailsClick(propertyId)
+  {
+    const queryParams = new URLSearchParams({
+      checkin: filter.checkIn.format('YYYY-MM-DD'), 
+      checkout: filter.checkOut.format('YYYY-MM-DD'), 
+    });
+
+    navigate(`/property/${propertyId}?${queryParams.toString()}`);
 
   }
 
  
-
-
-  
-    // const renderProperties = properties ? (
-    //   properties.map((property) => (
-    //     <Grid item xs={12} sm={6} md={4} key={property.propertyId}>
-    //       <Card>
-    //             <CardMedia
-    //                 component="img"
-    //                 alt={property.name}
-    //                 height="200"
-    //                 image={property.photos.img1}
-    //                 title={property.name}
-    //             />
-    //             <CardContent>
-    //                 <Typography gutterBottom variant="h5" component="h2">
-    //                     {property.name}
-    //                 </Typography>
-    //                 <Typography variant="body2" color="textSecondary" component="p">
-    //                     {property.description}
-    //                 </Typography>
-    //                 <Typography variant="body2" color="textSecondary" component="p">
-    //                     Price: ${property.priceForNight} per night
-    //                 </Typography>
-    //             </CardContent>
-    //         </Card>
-    //     </Grid>
-    //   ))
-    // ) : (
-    //   <Typography variant="body2">Properties was null</Typography>
-    // );
 
 
     const renderProperties = properties ? (
@@ -164,11 +141,11 @@ export default function HomePage()
               </Typography>
             </CardContent>
             <CardActions>
-              <Link to={`/property/${property.propertyId}`}>
-                <Button variant="outlined" color="primary" size="small">
+              
+                <Button variant="outlined" color="primary" size="small" onClick={()=>handleViewDetailsClick(property.propertyId)}>
                  View Details
                 </Button>
-              </Link>
+              
             </CardActions>
           </Card>
         </Grid>
@@ -176,6 +153,10 @@ export default function HomePage()
     ) : (
       <Typography variant="body2">Properties were null</Typography>
     );
+
+
+    
+  
 
    
 
