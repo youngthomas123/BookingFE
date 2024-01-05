@@ -4,6 +4,8 @@ import PropertyAPI from "../APIs/BookingSiteAPI/PropertyAPI";
 
 import { Typography, Grid, Card, CardContent, CardMedia, Container, Button, Box} from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import UserHelper from '../util/UserHelper';
 
 
 export default function PropertyPage()
@@ -20,11 +22,15 @@ export default function PropertyPage()
 
   const {propertyId} = useParams();
 
+  const navigate = useNavigate();
+  const user = UserHelper.getUserFromToken();
+
+
   
   
 
   const [property, setProperty] = useState({
-    Id: 0,
+    id: 0,
     name: 'placeholder name',
     description: 'placeholder description',
     location: 'placeholder location',
@@ -93,6 +99,18 @@ export default function PropertyPage()
 
     },[])
 
+    function handleBookNowButtonClick()
+    {
+      navigate(`/booking/${user.userId}`,{
+        state :{
+          property : property,
+          checkIn : checkIn,
+          checkOut : checkOut
+        }
+      });
+
+    }
+
 
 
 
@@ -158,6 +176,7 @@ export default function PropertyPage()
             variant="contained"
             disabled={property.hasConflictingBookings}
             color="primary"
+            onClick={handleBookNowButtonClick}
           >
             Book Now
           </Button>

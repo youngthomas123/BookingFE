@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import EnlistPropertyPage from "./pages/EnlistPropertyPage";
 import LandLordPage from "./pages/LandLordPage";
+import BookingPage from "./pages/BookingPage";
 
 
 
@@ -52,49 +53,55 @@ const router = createBrowserRouter(
         //protected routes
         {
           path: "home/",
-          element:  <RequireAuth allowedRoles={['tenant']}>
+          element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={false}>
                       <HomePage/>
                     </RequireAuth>
 
         },
         {
           path: "property/:propertyId",
-          element:  <RequireAuth allowedRoles={['tenant']}>
+          element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={false}>
                       <PropertyPage/>
                     </RequireAuth>
         },
 
         {
           path : "profile/:userId",
-          element : <RequireAuth allowedRoles={['tenant','landlord','admin']}>
+          element : <RequireAuth allowedRoles={['tenant','landlord','admin']} isUseridInRouteParam={true}>
                       <ProfilePage/>
                     </RequireAuth>
         },
 
         {
           path : "editprofile/:userId",
-          element : <RequireAuth allowedRoles={['tenant','landlord','admin']}>
+          element : <RequireAuth allowedRoles={['tenant','landlord','admin']} isUseridInRouteParam={true}>
                       <EditProfilePage/>
                     </RequireAuth>
         },
 
         {
           path: "admin/",
-          element:  <RequireAuth allowedRoles={['admin']}>
+          element:  <RequireAuth allowedRoles={['admin']} isUseridInRouteParam={false}>
                       <AdminPage/>
                     </RequireAuth>
         },
 
         {
           path: "enlistProperty/",
-          element:  <RequireAuth allowedRoles={['landlord']}>
+          element:  <RequireAuth allowedRoles={['landlord']} isUseridInRouteParam={false}>
                       <EnlistPropertyPage/>
                     </RequireAuth>
         },
         {
           path: "landlord/",
-          element:  <RequireAuth allowedRoles={['landlord']}>
+          element:  <RequireAuth allowedRoles={['landlord']} isUseridInRouteParam={false}>
                       <LandLordPage/>
+                    </RequireAuth>
+        },
+        {
+          path: "booking/:userId",
+          element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={true}>
+                      <BookingPage/>
                     </RequireAuth>
         },
         
