@@ -14,6 +14,7 @@ import UserHelper from '../util/UserHelper';
 import { useNavigate } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import BookingAPI from '../APIs/BookingSiteAPI/BookingAPI';
 
 export default function BookingPage()
 {
@@ -64,10 +65,25 @@ export default function BookingPage()
     
     if(bookProperty.id != "" && bookProperty.checkin!="" && bookProperty.checkout !="")
     {
-        console.log("booked");
+      
+        BookingAPI.createBooking(bookProperty.id, bookProperty.checkin, bookProperty.checkout)
+        .then((response)=>{
+          if(response.ok)
+          {
+            console.log("Successfully booked");
+          }
+          else
+          {
+            console.log("Failed to book, status : "+response.status);
+          }
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
     }
-    else{
-        console.log("fail");
+    else
+    {
+        console.log("Route data empty");
     }
   };
 
