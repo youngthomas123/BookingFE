@@ -16,8 +16,9 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import BookingAPI from '../APIs/BookingSiteAPI/BookingAPI';
 
-export default function BookingPage()
+export default function BookingPage({sendMessage})
 {
+  
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCVV] = useState('');
@@ -70,7 +71,13 @@ export default function BookingPage()
         .then((response)=>{
           if(response.ok)
           {
-            console.log("Successfully booked");
+            response.json()
+            .then((data)=>{
+              console.log("Successfully booked");
+              sendMessage({ 'text': "Your property "+bookProperty.name+ " has been booked by "+ user.username, 'to': data.landlordName});
+
+            })
+            
           }
           else
           {

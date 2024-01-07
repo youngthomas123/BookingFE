@@ -17,6 +17,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import EnlistPropertyPage from "./pages/EnlistPropertyPage";
 import LandLordPage from "./pages/LandLordPage";
 import BookingPage from "./pages/BookingPage";
+import NotificationSystem from "./util/NotificationSystem";
 
 
 
@@ -101,7 +102,12 @@ const router = createBrowserRouter(
         {
           path: "booking/",
           element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={false}>
-                      <BookingPage/>
+                       <NotificationSystem>
+                          {({ sendMessage, messagesReceived }) => (
+                            // Your component logic here, using sendMessage and messagesReceived
+                             <BookingPage sendMessage={sendMessage} />
+                           )}
+                       </NotificationSystem>
                     </RequireAuth>
         },
         

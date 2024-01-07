@@ -64,7 +64,7 @@ const NavBar = () =>
         {/* <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton> */}
-        {user != null && isTokenExpired==false ?  <NotificationSystem Username={user.username}>
+        {user != null && isTokenExpired==false ?  <NotificationSystem>
              {({ sendMessage, messagesReceived }) => (
                 // Your component logic here, using sendMessage and messagesReceived
                <NotificationBell messages={messagesReceived} />

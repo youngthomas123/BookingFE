@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import UserHelper from './UserHelper';
 
 
-export default function NotificationSystem({Username,children})
+export default function NotificationSystem({children})
 {
-    
+    const user = UserHelper.getUserFromToken();
     const [stompClient, setStompClient] = useState();
-    const [username, setUsername] = useState(Username);
+    const [username, setUsername] = useState(user.username);
     const [messagesReceived, setMessagesReceived] = useState([]);
 
 
@@ -18,18 +18,15 @@ export default function NotificationSystem({Username,children})
         console.log("stomp Username"+username);
       }
     }, [username]);
-  
-  
+
+    
     
   
-  
-        
     
     const setupStompClient = (username) => {
       // stomp client over websockets
       const stompClient = new Client({
         brokerURL: 'ws://localhost:8080/ws',
-        
         reconnectDelay: 5000,
         heartbeatIncoming: 4000,
         heartbeatOutgoing: 4000
