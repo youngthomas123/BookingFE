@@ -101,7 +101,7 @@ export default function PropertyPage()
 
     function handleBookNowButtonClick()
     {
-      navigate(`/booking/${user.userId}`,{
+      navigate(`/booking`,{
         state :{
           property : property,
           checkIn : checkIn,

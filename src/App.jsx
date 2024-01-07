@@ -99,8 +99,8 @@ const router = createBrowserRouter(
                     </RequireAuth>
         },
         {
-          path: "booking/:userId",
-          element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={true}>
+          path: "booking/",
+          element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={false}>
                       <BookingPage/>
                     </RequireAuth>
         },
