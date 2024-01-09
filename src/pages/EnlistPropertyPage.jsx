@@ -76,9 +76,9 @@ export default function EnlistPropertyPage()
       PropertyName.trim() !== '' &&
       descripion.trim() !== '' &&
       location.trim() !== '' &&
-      PropertyName.trim().length <= 30 &&
-      descripion.trim().length <= 200 &&
-      location.trim().length <= 50
+      PropertyName.trim().length <= 50 &&
+      descripion.trim().length <= 300 &&
+      location.trim().length <= 60
   ) 
   {
       console.log("Valid input");
