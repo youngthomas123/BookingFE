@@ -143,6 +143,32 @@ async function updatePropertyStatus(propertyId, status)
 
 }
 
+async function deletePropertyById(propertyId)
+{
+  const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+    };
+  
+    const url = `${baseUrl}/properties/${propertyId}`;
+  
+    try
+    {
+      const response = await fetch(url,{
+        method : 'DELETE',
+        headers : headers,
+      })
+      return response;
+    }
+    catch(error)
+    {
+      console.log("API error deletePropertyById()")
+      throw error;
+    }
+
+}
+
 
 const PropertyAPI = {
     
@@ -150,7 +176,8 @@ const PropertyAPI = {
     createPropertyEnlisting,
     getPropertyById,
     getLandlordPropertiesById,
-    updatePropertyStatus
+    updatePropertyStatus,
+    deletePropertyById
     
 
 };

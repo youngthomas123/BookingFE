@@ -97,6 +97,21 @@ export default function LandLordPage()
   function handleRemoveButtonClick(propertyId)
   {
     //remove button
+    PropertyAPI.deletePropertyById(propertyId)
+    .then((response)=>{
+      if(response.ok)
+      {
+        console.log("Property deleted successfully");
+        window.location.reload(); // Refresh the page
+      }
+      else
+      {
+        console.log(response.status);
+      }
+    })
+    .catch((error)=>{
+      console.log("error : "+ error);
+    })
   }
 
   function handleCreateNewEnlistingButtonClick()
@@ -114,6 +129,7 @@ export default function LandLordPage()
         </Typography>
       );
     }
+    
 
     return properties.map((property) => (
         <Grid item xs={12} md={6} lg={4} key={property.id}>
@@ -136,7 +152,7 @@ export default function LandLordPage()
               <Button size="small" variant="outlined" color='error' disabled={!property.enlisted} onClick={() => handleDelistButtonClick(property.id)}>
                 Delist
               </Button>
-              <Button size="small" variant="outlined" color='info' disabled={property.enlisted || property.outstandingBooking} onClick={()=>handleRemoveButtonClick(property.id)}>
+              <Button size="small" variant="outlined" color='info' disabled={!(!property.enlisted && !property.outstandingBooking)} onClick={()=>handleRemoveButtonClick(property.id)}>
                 Remove
               </Button>
             </CardActions>
