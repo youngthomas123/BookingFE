@@ -119,6 +119,32 @@ async function updateUserById(id, phoneNumber, email, bio, profilePic)
   }
 }
 
+async function updateUserStatus(userId, status)   // to ban or unban users
+{
+  const token = localStorage.getItem('token');
+  const url = `${baseUrl}/users/timeout/${userId}?status=${status}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+  };
+  try
+  {
+    const response = await fetch(url, {
+      method : 'PUT',
+      headers : headers,
+    });
+
+    return response;
+
+  }
+  catch(error)
+  {
+    console.log("API error updateUserStatus()")
+    throw error;
+  }
+
+}
+
 
 
 
@@ -127,6 +153,7 @@ const UserAPI = {
   getUserById,
   signIn,
   updateUserById,
+  updateUserStatus,
 };
 
 export default UserAPI;

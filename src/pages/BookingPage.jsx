@@ -75,6 +75,7 @@ export default function BookingPage({sendMessage})
             .then((data)=>{
               console.log("Successfully booked");
               sendMessage({ 'text': "Your property "+bookProperty.name+ " has been booked by "+ user.username, 'to': data.landlordName});
+              navigate('/home');
 
             })
             

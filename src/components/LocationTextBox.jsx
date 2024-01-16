@@ -7,59 +7,31 @@ import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import { debounce } from '@mui/material/utils';
 import { useEffect, useMemo, useState, useRef } from 'react';
+import { initializeGoogleMaps, getAutocompleteService } from '../APIs/ExternalAPI/mapsService';
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyDfBrts8onyrs60leHMVa2Z6T5DI4jLeJo';
+// Call initializeGoogleMaps once before rendering the component
+initializeGoogleMaps();
 
-function loadScript(src, position, id) {
-  if (!position) {
-    return;
-  }
-
-  const script = document.createElement('script');
-  script.setAttribute('async', '');
-  script.setAttribute('id', id);
-  script.src = src;
-  position.appendChild(script);
-}
-
-const autocompleteService = { current: null };
-
-export default function LocationTextBox() {
+export default function LocationTextBox({setLocation, width=300}) 
+{
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
   const loaded = useRef(false);
 
-  if (typeof window !== 'undefined' && !loaded.current) {
-    if (!document.querySelector('#google-maps')) {
-      loadScript(
-        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`,
-        document.querySelector('head'),
-        'google-maps',
-      );
-    }
-
-    loaded.current = true;
-  }
-
   const fetch = useMemo(
     () =>
       debounce((request, callback) => {
-        autocompleteService.current.getPlacePredictions(request, callback);
+        const autocompleteService = getAutocompleteService();
+        autocompleteService.getPlacePredictions(request, callback);
       }, 400),
     [],
   );
 
-    useEffect(() => {
+  useEffect(() => {
     let active = true;
 
-    if (!autocompleteService.current && window.google) {
-      autocompleteService.current =
-        new window.google.maps.places.AutocompleteService();
-    }
-    if (!autocompleteService.current) {
-      return undefined;
-    }
+    const autocompleteService = getAutocompleteService();
 
     if (inputValue === '') {
       setOptions(value ? [value] : []);
@@ -89,8 +61,9 @@ export default function LocationTextBox() {
 
   return (
     <Autocomplete
+      
       id="google-map-demo"
-      sx={{ width: 300 }}
+      sx={{ width: width }}
       getOptionLabel={(option) =>
         typeof option === 'string' ? option : option.description
       }
@@ -102,11 +75,18 @@ export default function LocationTextBox() {
       value={value}
       noOptionsText="No locations"
       onChange={(event, newValue) => {
-        setOptions(newValue ? [newValue, ...options] : options);
+        if (!newValue) {
+          // If newValue is null or undefined, it means the input is cleared
+          setOptions([]); // Clear the options array
+        } else {
+          setOptions((prevOptions) => [newValue, ...prevOptions]); // Add the new value to the options
+        }
         setValue(newValue);
       }}
+      
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
+        setLocation(newInputValue);
       }}
       renderInput={(params) => (
         <TextField {...params} label="Add a location" fullWidth />
@@ -126,7 +106,10 @@ export default function LocationTextBox() {
               <Grid item sx={{ display: 'flex', width: 44 }}>
                 <LocationOnIcon sx={{ color: 'text.secondary' }} />
               </Grid>
-              <Grid item sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}>
+              <Grid
+                item
+                sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}
+              >
                 {parts.map((part, index) => (
                   <Box
                     key={index}
@@ -147,8 +130,4 @@ export default function LocationTextBox() {
     />
   );
 }
-
-
-
-
 

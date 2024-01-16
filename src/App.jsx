@@ -17,6 +17,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import EnlistPropertyPage from "./pages/EnlistPropertyPage";
 import LandLordPage from "./pages/LandLordPage";
 import BookingPage from "./pages/BookingPage";
+// import ViewPastBookingsPage from "./pages/ViewPastBookingsPage"
 import NotificationSystem from "./util/NotificationSystem";
 
 
@@ -110,6 +111,13 @@ const router = createBrowserRouter(
                        </NotificationSystem>
                     </RequireAuth>
         },
+
+        // {
+        //   path: "pastBookings/:userId",
+        //   element:  <RequireAuth allowedRoles={['tenant']} isUseridInRouteParam={true}>
+        //               <ViewPastBookingsPage/>
+        //             </RequireAuth>
+        // },
         
        
   

@@ -5,11 +5,14 @@ import { Grid, TextField, Button, Typography, Container, Paper, Box } from '@mui
 import PropertyAPI from '../APIs/BookingSiteAPI/PropertyAPI';
 import { useNavigate } from 'react-router-dom';
 
+import TestLocationTextBox from '../components/TestLocationTextBox';
+
 
 export default function EnlistPropertyPage()
 {
   const [mainPhoto, setMainPhoto] = useState('');
   const [otherPhotos, setOtherPhotos] = useState([]);
+  const [location, setLocation] = useState("");
 
   const navigate = useNavigate();
 
@@ -54,7 +57,6 @@ export default function EnlistPropertyPage()
     const handleEnlistProperty = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const location = data.get('Location');
     const PropertyName = data.get('PropertyName');
     const descripion = data.get('Description');
     const price = data.get('PricePerNight');
@@ -76,9 +78,9 @@ export default function EnlistPropertyPage()
       PropertyName.trim() !== '' &&
       descripion.trim() !== '' &&
       location.trim() !== '' &&
-      PropertyName.trim().length <= 50 &&
-      descripion.trim().length <= 300 &&
-      location.trim().length <= 60
+      PropertyName.trim().length <= 90 &&
+      descripion.trim().length <= 500 &&
+      location.trim().length <= 100
   ) 
   {
       console.log("Valid input");
@@ -127,12 +129,15 @@ export default function EnlistPropertyPage()
               />
             </Grid>
             <Grid item xs={12} >
-              <TextField
+              {/* <TextField
                 fullWidth
                 label="Location"
                 name='Location'
                 variant="outlined"
-              />
+                
+              /> */}
+              <TestLocationTextBox setLocation={setLocation} width={1090}/>
+
             </Grid>
             <Grid item xs={12} >
               <TextField

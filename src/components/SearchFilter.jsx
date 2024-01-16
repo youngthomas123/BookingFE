@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 import DateTextBox from './DateTextBox';
 import TestLocationTextBox from './TestLocationTextBox';
-// import LocationTextBox from './LocationTextBox';
+
 import Alert from '@mui/material/Alert';
 import dayjs from 'dayjs';
 import { useState } from 'react';
@@ -31,6 +31,9 @@ export default function SearchFilter({setFilter})
       }
   
        setFilter(filter);
+       console.log("Location : "+ location);
+       
+
      
 
     }
@@ -53,6 +56,7 @@ export default function SearchFilter({setFilter})
         <Grid item>
           <TestLocationTextBox 
           setLocation={setLocation}
+          width={300}
          
          
           

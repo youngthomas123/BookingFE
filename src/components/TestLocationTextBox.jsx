@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import { address } from '../mock/fakeData/Property';
 
 
-export default function TestLocationTextBox({setLocation})
+export default function TestLocationTextBox({setLocation, width =300})
 {
   
 
@@ -12,7 +12,7 @@ export default function TestLocationTextBox({setLocation})
         freeSolo
         id="location"
         options={address}
-        sx={{ width: 300 }}
+        sx={{ width: width }}
       
         onInputChange={(event,location)=>setLocation(location)}
         
