@@ -145,6 +145,32 @@ async function updateUserStatus(userId, status)   // to ban or unban users
 
 }
 
+async function searchByUsername(username)
+{
+  const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+  const url = `${baseUrl}/users/search?username=${username}`;
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+  };
+
+  try
+  {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: headers,
+    });
+    return response;
+  }
+  catch(error)
+  {
+    console.log("API error searchByUsername()");
+    throw error;
+  }
+
+
+}
+
 
 
 
@@ -154,6 +180,7 @@ const UserAPI = {
   signIn,
   updateUserById,
   updateUserStatus,
+  searchByUsername,
 };
 
 export default UserAPI;

@@ -7,11 +7,14 @@ import {
     TableRow,
     TablePagination,
     Button,
-    Avatar
+    Avatar,
+    TextField
   } from '@mui/material';
 
 import { useEffect, useState } from 'react';
 import UserAPI from '../APIs/BookingSiteAPI/UserAPI';
+import FeedbackSnackbar from '../components/FeedbackSnackbar'
+
 
 
 const columns = [
@@ -38,6 +41,11 @@ export default function AdminPage()
 
     const [banToggle, setBanToggle] = useState(false); // Added state for triggering useEffect
 
+    const [searchUsername, setSearchUsername] = useState("");
+
+    const [message, setMessage] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+
 
     const handleBanUnban = (userId, status) => {
       
@@ -53,10 +61,14 @@ export default function AdminPage()
         else
         {
           console.log("fail");
+          setMessage("Failed to exectute");
+          setOpenSnackbar(true);
         }
       })
       .catch((error)=>{
         console.log("error : "+ error);
+        setMessage("Network error");
+        setOpenSnackbar(true);
       })
       
 
@@ -66,20 +78,39 @@ export default function AdminPage()
     };
 
 
+    // useEffect(()=>{
+    //   UserAPI.getAllUsers()
+    //   .then((response)=>{
+    //     if(response.ok)
+    //     {
+    //       response.json()
+    //       .then((data)=>{
+    //         console.log(data);
+    //         setUsers(data.users);
+    //       })
+    //     }
+    //   })
+
+    // },[banToggle])
+
+
+
     useEffect(()=>{
-      UserAPI.getAllUsers()
+      UserAPI.searchByUsername(searchUsername)
       .then((response)=>{
         if(response.ok)
         {
           response.json()
           .then((data)=>{
-            console.log(data);
+            console.log("searched users "+data.users);
             setUsers(data.users);
           })
         }
       })
 
-    },[banToggle])
+    },[searchUsername, banToggle])
+
+    
 
 
 
@@ -92,10 +123,23 @@ export default function AdminPage()
       setRowsPerPage(+event.target.value);
       setPage(0);
     };
+
+    const handleSearchChange = (event) => {
+      setSearchUsername(event.target.value);
+    };
+  
   
     
   
     return (
+      <div>
+      {/* Search input */}
+      <TextField
+        label="Search by Username"
+        value={searchUsername}
+        onChange={handleSearchChange}
+        sx={{ mb: 2 }}
+      />
       <TableContainer>
         <Table>
           <TableHead>
@@ -144,7 +188,10 @@ export default function AdminPage()
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+        
       </TableContainer>
+      <FeedbackSnackbar message={message} setOpen={setOpenSnackbar} open={openSnackbar} />
+      </div>
     );
   
         
