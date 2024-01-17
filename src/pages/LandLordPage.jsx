@@ -3,6 +3,8 @@ import { Container, Grid, Typography, Card, CardMedia, CardActions, Button, Box,
 import { useEffect, useState } from 'react';
 import PropertyAPI from '../APIs/BookingSiteAPI/PropertyAPI';
 import UserHelper from "../util/UserHelper"
+import FeedbackSnackbar from '../components/FeedbackSnackbar'
+
 
 
 export default function LandLordPage() 
@@ -10,6 +12,11 @@ export default function LandLordPage()
   
 
   const [properties, setProperties] = useState([])
+
+  const [message, setMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [toggle, setToggle] = useState(false); // Added state for triggering useEffect
+
 
   const user = UserHelper.getUserFromToken();
 
@@ -34,16 +41,20 @@ export default function LandLordPage()
       else if (response.status ==403)
       {
         console.log("403");
+        setMessage("Error in geting properties");
+        setOpenSnackbar(true);
       }
     })
     .catch((error)=>{
       console.log("error : "+error)
+      setMessage("Network error");
+      setOpenSnackbar(true);
     })
 
     
 
 
-  },[])
+  },[toggle])
 
   const navigate = useNavigate();
 
@@ -57,15 +68,18 @@ export default function LandLordPage()
       if(response.ok)
       {
         console.log("updated status");
-        window.location.reload(); // Refresh the page
+        setToggle(!toggle);
       }
       else
       {
         console.log(response.status);
+        setMessage("Error occured while enlisting");
+        setOpenSnackbar(true);
       }
     })
     .catch((error)=>{
       console.log("error : "+error);
+      setMessage("Network error, unable to enlist");
      })
   
   }
@@ -81,16 +95,20 @@ export default function LandLordPage()
     if(response.ok)
     {
       console.log("updated status");
-      window.location.reload(); // Refresh the page
+      setToggle(!toggle);
       
     }
     else
     {
       console.log(response.status);
+      setMessage("Error occured while delisting");
+      setOpenSnackbar(true);
     }
    })
    .catch((error)=>{
     console.log("error : "+error);
+    setMessage("Network error, unable to delist");
+    setOpenSnackbar(true);
    })
   }
 
@@ -102,15 +120,19 @@ export default function LandLordPage()
       if(response.ok)
       {
         console.log("Property deleted successfully");
-        window.location.reload(); // Refresh the page
+        setToggle(!toggle);
       }
       else
       {
         console.log(response.status);
+        setMessage("Error occured while removing");
+        setOpenSnackbar(true);
       }
     })
     .catch((error)=>{
       console.log("error : "+ error);
+      setMessage("Network error, unable to remove");
+      setOpenSnackbar(true)
     })
   }
 
@@ -157,6 +179,7 @@ export default function LandLordPage()
               </Button>
             </CardActions>
           </Card>
+          <FeedbackSnackbar message={message} setOpen={setOpenSnackbar} open={openSnackbar} />
         </Box>
       </Grid>
     ));

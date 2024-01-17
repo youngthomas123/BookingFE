@@ -11,6 +11,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import LoginAPI from '../APIs/BookingSiteAPI/LoginAPi';
 import { useState } from 'react';
+import FeedbackSnackbar from '../components/FeedbackSnackbar'
 
 import UserHelper from '../util/UserHelper';
 
@@ -20,6 +21,9 @@ import UserHelper from '../util/UserHelper';
 export default function LoginPage() 
 {
   const [errorMessage, setErrorMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  
+
 
   const navigate = useNavigate();
 
@@ -57,6 +61,14 @@ export default function LoginPage()
       {
         console.log("Failed to login: Incorrect Username or Password");
         setErrorMessage('Username or password is incorrect. Please try again.');
+        setOpenSnackbar(true);
+        
+      }
+      else if(response.status == 404)
+      {
+        console.log("you have been banned");
+        setErrorMessage('This account has been banned');
+        setOpenSnackbar(true);
       }
 
     })
@@ -64,6 +76,7 @@ export default function LoginPage()
     {
       console.log("Error from API in LoginPage: " + error.message)
       setErrorMessage('Network error, '+error.message);
+      setOpenSnackbar(true);
     })
   }
   
@@ -122,11 +135,12 @@ export default function LoginPage()
                 </Grid>
               </Grid>
             </Box>
-            {errorMessage && (
+            {/* {errorMessage && (
               <Typography variant="subtitle2" color="error" align="center">
                {errorMessage}
               </Typography>
-            )}
+            )} */}
+            <FeedbackSnackbar message={errorMessage} setOpen={setOpenSnackbar} open={openSnackbar} />
           </Box>
         </Container>
       

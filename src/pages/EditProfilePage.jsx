@@ -10,6 +10,8 @@ import Input from '@mui/material/Input';
 import UserAPI from '../APIs/BookingSiteAPI/UserAPI';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import FeedbackSnackbar from '../components/FeedbackSnackbar'
+
 
 
 
@@ -32,6 +34,10 @@ export default function EditProfilePage()
   const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber);
   const [profilePicDisplay, setProfilePicDisplay] = useState(initialProfilePic); // profile url 
   const [profilePicFile, setProfilePicFile] = useState(null);
+
+  const [message, setMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
 
   const handleSave = () => {
     // Handle saving the updated profile details
@@ -61,15 +67,21 @@ export default function EditProfilePage()
       {
         console.log("invalid input");
         console.log(response);
+        setMessage("Invalid input");
+        setOpenSnackbar(true);
       }
       else 
       {
         console.log("Failed to update profile");
+        setMessage("Failed to update profile");
+        setOpenSnackbar(true);
       }
     })
     .catch((error)=>
     {
       console.log(error.message);
+      setMessage("Network error");
+      setOpenSnackbar(true);
     });
 
 
@@ -146,6 +158,7 @@ export default function EditProfilePage()
             Save
           </Button>
         </Grid>
+        <FeedbackSnackbar message={message} setOpen={setOpenSnackbar} open={openSnackbar} />
       </Grid>
     );
   }

@@ -12,6 +12,7 @@ import {  Radio, RadioGroup, FormControlLabel } from '@mui/material';
 import { useState } from 'react';
 import UserAPI from '../APIs/BookingSiteAPI/UserAPI';
 import { useNavigate } from 'react-router-dom';
+import FeedbackSnackbar from '../components/FeedbackSnackbar';
 
 
 export default function SignUpPage() 
@@ -19,6 +20,7 @@ export default function SignUpPage()
   const navigate = useNavigate();
 
   const [error, setError] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,19 +47,24 @@ export default function SignUpPage()
           else if (response.status ==400)
           {
             setError('Username already taken, try again with a different username.');
+            setOpenSnackbar(true);
           }
         })
         .catch((error)=>
         {
           setError("Network error, "+ error.message)
+          setOpenSnackbar(true);
+          
         })
       } 
       else 
       {
         setError('Passwords do not match');
+        setOpenSnackbar(true);
       }
     } else {
       setError('Invalid input. Username/Password too short or type not selected');
+      setOpenSnackbar(true)
     }
   };
 
@@ -128,11 +135,11 @@ export default function SignUpPage()
                   </RadioGroup>
                 </Grid>
               </Grid>
-                {error && (
+                {/* {error && (
                   <Typography variant="subtitle2" color="error" align="center">
                     {error}
                   </Typography>
-                )}
+                )} */}
               <Button
                 type="submit"
                 fullWidth
@@ -149,6 +156,7 @@ export default function SignUpPage()
                 </Grid>
               </Grid>
             </Box>
+            <FeedbackSnackbar message={error} setOpen={setOpenSnackbar} open={openSnackbar} />
           </Box>
         </Container>
     );

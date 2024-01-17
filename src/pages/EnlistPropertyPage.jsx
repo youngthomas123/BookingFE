@@ -6,6 +6,9 @@ import PropertyAPI from '../APIs/BookingSiteAPI/PropertyAPI';
 import { useNavigate } from 'react-router-dom';
 
 import TestLocationTextBox from '../components/TestLocationTextBox';
+import FeedbackSnackbar from '../components/FeedbackSnackbar'
+
+
 
 
 export default function EnlistPropertyPage()
@@ -13,6 +16,9 @@ export default function EnlistPropertyPage()
   const [mainPhoto, setMainPhoto] = useState('');
   const [otherPhotos, setOtherPhotos] = useState([]);
   const [location, setLocation] = useState("");
+
+  const [message, setMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const navigate = useNavigate();
 
@@ -95,16 +101,22 @@ export default function EnlistPropertyPage()
         {
           console.log("Failed to create enlisting");
           console.log(response);
+          setMessage("Failed to create Enlisting");
+          setOpenSnackbar(true);
         }
       })
       .catch((error)=>
       {
         console.log(error);
+        setMessage("An Error occured");
+        setOpenSnackbar(true);
       })
   } 
   else 
   {
       console.log("Invalid input");
+      setMessage("Invalid input");
+      setOpenSnackbar(true);
   }
   
 
@@ -273,6 +285,7 @@ export default function EnlistPropertyPage()
           </Grid>
         </form>
       </Paper>
+      <FeedbackSnackbar message={message} setOpen={setOpenSnackbar} open={openSnackbar} />
     </Container>
   );
 
@@ -290,132 +303,4 @@ export default function EnlistPropertyPage()
 
 
 
-
-
-
-
-
-
-// import { useState } from 'react';
-// import { Grid, TextField, Button, Typography, Container, Paper, Box } from '@mui/material';
-
-// export default function EnlistPropertyPage() {
-//   const [mainPhoto, setMainPhoto] = useState('');
-//   const [otherPhotos, setOtherPhotos] = useState([]);
-
-//   const handleMainPhotoChange = (event) => {
-//     const file = event.target.files[0];
-//     if (file && file.type.includes('image')) {
-//       setMainPhoto(file);
-//     }
-//   };
-
-//   const handleOtherPhotosChange = (event) => {
-//     const file = event.target.files[0]; // Get the first selected file
-//     if (file && file.type.includes('image')) {
-//       const updatedPhotos = [...otherPhotos];
-//       if (updatedPhotos.length < 6) {
-//         updatedPhotos.push(file);
-//         setOtherPhotos(updatedPhotos);
-//         event.target.value = null; // Reset the input value to clear the selection
-//       }
-//     }
-//   };
-  
-  
-
-//   const handleRemovePhoto = (index) => {
-//     const updatedPhotos = [...otherPhotos];
-//     updatedPhotos.splice(index, 1);
-//     setOtherPhotos(updatedPhotos);
-//   };
-
-//   const handleEnlistProperty = () => {
-//     // Code to upload 'mainPhoto' and 'otherPhotos' to the server
-//     // Example:
-//     // const formData = new FormData();
-//     // formData.append('mainPhoto', mainPhoto);
-//     // otherPhotos.forEach((photo, index) => {
-//     //   formData.append(`otherPhoto_${index}`, photo);
-//     // });
-//     // Make an API request here to upload formData to the server
-//   };
-
-//   return (
-//     <Container maxWidth="lg" style={{ marginTop: '40px' }}>
-//       {/* ... rest of the code */}
-//       <form onSubmit={handleEnlistProperty}>
-//         {/* ... other input fields */}
-//         <Grid item xs={12}>
-//           <Typography variant="subtitle1">Other Photos (Max 6)</Typography>
-//           <Box display="flex" flexWrap="wrap">
-//             {otherPhotos.map((photo, index) => (
-//               <Box
-//                 key={index}
-//                 display="flex"
-//                 flexDirection="column"
-//                 alignItems="center"
-//                 mb={2}
-//                 mr={2}
-//                 style={{
-//                   position: 'relative',
-//                   marginBottom: '12px',
-//                   width: '100px',
-//                   height: '130px',
-//                 }}
-//               >
-//                 <img
-//                   src={URL.createObjectURL(photo)}
-//                   alt={`Other ${index + 1}`}
-//                   style={{
-//                     width: '100%',
-//                     height: '100%',
-//                     objectFit: 'cover',
-//                     borderRadius: '5px',
-//                   }}
-//                 />
-//                 <Button
-//                   variant="outlined"
-//                   color="secondary"
-//                   size="small"
-//                   onClick={() => handleRemovePhoto(index)}
-//                   style={{
-//                     marginTop: '5px',
-//                     padding: '2px 6px',
-//                     fontSize: '0.75rem',
-//                     opacity: '0.7',
-//                     width: '100%',
-//                   }}
-//                 >
-//                   Remove
-//                 </Button>
-//               </Box>
-//             ))}
-//             {otherPhotos.length < 6 && (
-//               <Box
-//                 display="flex"
-//                 alignItems="center"
-//                 mb={2}
-//                 mr={2}
-//                 style={{
-//                   borderRadius: '5px',
-//                   border: '2px dashed #aaa',
-//                   padding: '10px',
-//                   position: 'relative',
-//                 }}
-//               >
-//                 <input type="file" onChange={handleOtherPhotosChange} multiple />
-//               </Box>
-//             )}
-//           </Box>
-//         </Grid>
-//         <Grid item xs={12}>
-//           <Button fullWidth variant="contained" color="primary" type="submit">
-//             Enlist Property
-//           </Button>
-//         </Grid>
-//       </form>
-//     </Container>
-//   );
-// }
 

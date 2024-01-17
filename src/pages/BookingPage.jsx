@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import BookingAPI from '../APIs/BookingSiteAPI/BookingAPI';
+import FeedbackSnackbar from '../components/FeedbackSnackbar'
+
 
 export default function BookingPage({sendMessage})
 {
@@ -50,6 +52,9 @@ export default function BookingPage({sendMessage})
     checkout : initialCheckOut
   })
 
+  const [message, setMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   useEffect(() => {
     
     if (bookProperty.id =="") 
@@ -83,10 +88,14 @@ export default function BookingPage({sendMessage})
           else
           {
             console.log("Failed to book, status : "+response.status);
+            setMessage("Failed to book property");
+            setOpenSnackbar(true);
           }
         })
         .catch((error)=>{
           console.log(error);
+          setMessage("Network error");
+          setOpenSnackbar(true);
         });
     }
     else
@@ -153,6 +162,7 @@ export default function BookingPage({sendMessage})
               </form>
             </CardContent>
           </Card>
+          <FeedbackSnackbar message={message} setOpen={setOpenSnackbar} open={openSnackbar} />
         </Container>
       );
 
